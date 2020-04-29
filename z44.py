@@ -1,30 +1,33 @@
-f = open("data.txt")
+try:
+    f = open("data.txt")
+except:
+    print("cannot open file")
+    exit()
 flag = 0
+fl=0
 k = 0
 n = 0
 a = 0
+z = 0
 for line in f:
     for i in line.split():
+        flag=1
         a = int(i)
-        if flag == 0:
-            n = a
-            if a>0:
-                k=a
-            flag = 1
+        if a>=0:
+            fl=1
+        if (a<0 and z==0) or (a<0 and z<0 and a>z):
+            z=a
+        if k+a>0:
+            k=k+a
         else:
-            if a<0:
-                if a>n:
-                    n=a
-                k=0
-            elif a==0:
-                if a>n:
-                    n=a
-            elif a>0:
-                k=k+a
-                if k>n:
-                    n=k
+            k=0
+        if k>n:
+            n=k
 if flag == 0:
     print("empty file")
 else:
-    print(n)
+    if fl==1:
+        print(n)
+    else:
+        print(z)
 f.close()
